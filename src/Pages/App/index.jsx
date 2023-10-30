@@ -6,6 +6,7 @@ import MyOrder from '../MyOrder'
 import MyOrders from '../MyOrders'
 import NotFound from '../NotFound'
 import SignIn from '../SignIn'
+import Navbar from '../../Components/Navbar'
 import './App.css'
 
 const AppRoutes = () => {
@@ -27,7 +28,7 @@ const AppRoutes = () => {
       element: <MyOrders />
     },
     {
-      path: '/signin',
+      path: '/sign-in',
       element: <SignIn />
     },
     {
@@ -42,6 +43,7 @@ const AppRoutes = () => {
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <AppRoutes />
     </BrowserRouter>
   )
