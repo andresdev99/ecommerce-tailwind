@@ -1,16 +1,9 @@
-import { useState, useEffect } from "react"
 import Card from "../../Components/Card"
 import Layout from "../../Components/Layout" 
+import { useFetch } from "../../Hooks/useFetch"
 
 const Home = () => {
-  const [products, setProducts] = useState([])
-
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-    .then(response => response.json())
-    .then(products => setProducts(products))
-  }, [])
-  
+  const products = useFetch('https://fakestoreapi.com/products');
   
   return (
     <Layout>
