@@ -8,6 +8,7 @@ import NotFound from '../NotFound'
 import SignIn from '../SignIn'
 import Navbar from '../../Components/Navbar'
 import './App.css'
+import { ShoppingProvider } from '../../Context'
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -35,17 +36,20 @@ const AppRoutes = () => {
       path: '/*',
       element: <NotFound />
     }
-    
+
   ])
   return routes
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <AppRoutes />
-    </BrowserRouter>
+    <ShoppingProvider>
+      <BrowserRouter>
+        <Navbar />
+        <AppRoutes />
+      </BrowserRouter>
+    </ShoppingProvider>
+
   )
 }
 

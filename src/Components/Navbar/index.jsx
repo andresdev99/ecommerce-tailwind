@@ -1,7 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useShopContext } from '../../Context'
 
 const Navbar = () => {
+    const { count }   = useShopContext()
     const activeStyle = 'underline'
 
     let navItems = [
@@ -58,7 +60,7 @@ const Navbar = () => {
             },
             {
                 to: '/shoppcar',
-                text: '🛒 0',
+                text: '🛒 ' + count,
             }
         ]
     ]
