@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useShopContext } from '../../Context'
 
 const Navbar = () => {
-    const { count }   = useShopContext()
+    const { count, setScrolled, scrolled }   = useShopContext()
     const activeStyle = 'underline'
+
+
+    useEffect(() => {
+        // Función para manejar el desplazamiento
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        // Agregar un evento de desplazamiento al cargar el componente
+        window.addEventListener('scroll', handleScroll);
+
+        // Eliminar el evento de desplazamiento al descargar el componente
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     let navItems = [
         // Left Navbar Items
@@ -61,16 +81,22 @@ const Navbar = () => {
             {
                 to: '/shoppcar',
                 text: '🛒 ' + count,
+                className: 'bg-black text-white text-xl font-bold rounded p-2'
             }
         ]
     ]
 
 
+
+
+    // Aplicar una clase CSS para el navbar cuando se desplace
+    const navbarClass = `flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light ${scrolled ? 'hidden' : 'show'}`;
+
+
+
     return (
         <>
-            <nav
-                className='flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light'
-            >
+            <nav className={navbarClass}>
                 {
                     navItems.map((items, nav) => (
                         <ul className='flex items-center gap-3' key={nav}>

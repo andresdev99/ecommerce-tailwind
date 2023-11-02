@@ -4,11 +4,15 @@ const ShoppingContext = createContext()
 
 export const ShoppingProvider = ({ children }) => {
     const [count, setCount] = useState(0)
+    // State to check if the scrollbar was scrolled down
+    const [scrolled, setScrolled] = useState(false);
     return (
         <ShoppingContext.Provider
             value={{
                 count,
-                setCount
+                scrolled,
+                setCount,
+                setScrolled
             }}
         >
             {children}

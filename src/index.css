@@ -1,0 +1,17 @@
+/* Estilos del scrollbar */
+::-webkit-scrollbar {
+    width: 8px; /* Ancho del scrollbar */
+  }
+  
+  /* Barra del scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background-color: #5e5e5e; /* Color de fondo de la barra del scrollbar */
+    border-radius: 4px; /* Borde redondeado de la barra del scrollbar */
+  }
+  
+  /* Pista del scrollbar (el área donde se mueve la barra) */
+  ::-webkit-scrollbar-track {
+    background-color: #000000; /* Color de fondo de la pista del scrollbar */
+    border-radius: 8px; /* Borde redondeado de la pista del scrollbar */
+  }
+  

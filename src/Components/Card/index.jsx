@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useShopContext } from '../../Context';
 
 const Card = ({ products }) => {
-    const { setCount } = useShopContext()
-
+    const { setCount, count, scrolled } = useShopContext()
+    const floatingCounter = `fixed z-20 text-xl bottom-0 text-white font-bold right-0 p-4 bg-black w-32 rounded-l-full mb-4 ${scrolled ? 'show' : 'hidden'} `;
     return (
-        <div className='grid gap-4 grid-cols-2 lg:grid-cols-4 md:grid-cols-3 w-full max-w-screen-lg px-2'>
+        <div className='grid gap-4 mt-9 grid-cols-2 lg:grid-cols-4 md:grid-cols-3 w-full max-w-screen-lg px-2'>
             {
                 products.map(product => (
                     <div key={product.id} className='bg-white justify-self-center cursor-pointer w-56 h-72 rounded-lg flex flex-col'>
@@ -23,7 +23,7 @@ const Card = ({ products }) => {
                         </p>
                         <div className='flex justify-center items-center h-full'>
                             <button
-                                className='hover:bg-gray-500 bg-black text-white h-10 w-4/5 rounded-full flex  gap-2 justify-center items-center'
+                                className='hover:bg-gray-800 bg-black text-white h-10 w-4/5 rounded-2xl flex  gap-2 justify-center items-center'
                                 onClick={() => setCount(prevCount => prevCount + 1)}
                             >
                                 Add to cart
@@ -35,11 +35,14 @@ const Card = ({ products }) => {
                                 </svg>
                             </button>
                         </div>
-
                     </div>
-
                 ))
             }
+            <div
+                className={floatingCounter}
+            >
+                🛒 {count}
+            </div>
         </div>
     )
 }
