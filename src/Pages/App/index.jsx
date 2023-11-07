@@ -8,7 +8,9 @@ import NotFound from '../NotFound'
 import SignIn from '../SignIn'
 import Navbar from '../../Components/Navbar'
 import './App.css'
-import { ShoppingProvider } from '../../Context'
+import { useShopContext } from '../../Context'
+import CheckoutSideMenu from '../../Components/CheckoutSideMenu'
+
 
 const AppRoutes = () => {
   let routes = useRoutes([
@@ -42,14 +44,14 @@ const AppRoutes = () => {
 }
 
 function App() {
+  const { showCheckout } = useShopContext()
+  console.log('Checkout:',showCheckout)
   return (
-    <ShoppingProvider>
-      <BrowserRouter>
-        <Navbar />
-        <AppRoutes />
-      </BrowserRouter>
-    </ShoppingProvider>
-
+    <BrowserRouter>
+      <Navbar />
+      <AppRoutes />
+      {showCheckout && <CheckoutSideMenu />}
+    </BrowserRouter>
   )
 }
 

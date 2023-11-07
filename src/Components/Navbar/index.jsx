@@ -1,30 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useShopContext } from '../../Context'
+import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 
 const Navbar = () => {
     const { count, setScrolled, scrolled }   = useShopContext()
     const activeStyle = 'underline'
 
-
-    useEffect(() => {
-        // Función para manejar el desplazamiento
-        const handleScroll = () => {
-            if (window.scrollY > 0) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
-
-        // Agregar un evento de desplazamiento al cargar el componente
-        window.addEventListener('scroll', handleScroll);
-
-        // Eliminar el evento de desplazamiento al descargar el componente
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
 
     let navItems = [
         // Left Navbar Items
@@ -80,8 +62,8 @@ const Navbar = () => {
             },
             {
                 to: '/shoppcar',
-                text: '🛒 ' + count,
-                className: 'bg-black text-white text-xl font-bold rounded p-2'
+                text: count,
+                className: 'bg-black text-white text-md font-bold rounded p-2'
             }
         ]
     ]
@@ -111,7 +93,15 @@ const Navbar = () => {
                                                 : undefined
                                             }
                                         >
-                                            {item.text}
+                                            {
+                                                item.to == "/shoppcar" ?
+                                                    <div className='flex gap-2'>
+                                                        <ShoppingBagIcon className='flex gap-3 h-5 w-5' />
+                                                        {item.text}
+                                                    </div>
+                                                    : item.text
+                                            }
+
                                         </NavLink>
                                     </li>
                                 ))
