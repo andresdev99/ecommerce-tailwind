@@ -4,7 +4,7 @@ import { useShopContext } from '../../Context'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 
 const Navbar = () => {
-    const { count, setScrolled, scrolled }   = useShopContext()
+    const { counter, scrolled }   = useShopContext()
     const activeStyle = 'underline'
 
 
@@ -62,19 +62,14 @@ const Navbar = () => {
             },
             {
                 to: '/shoppcar',
-                text: count,
+                text: counter,
                 className: 'bg-black text-white text-md font-bold rounded p-2'
             }
         ]
     ]
 
-
-
-
     // Aplicar una clase CSS para el navbar cuando se desplace
     const navbarClass = `flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light ${scrolled ? 'hidden' : 'show'}`;
-
-
 
     return (
         <>

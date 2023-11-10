@@ -8,8 +8,7 @@ import { NavLink } from 'react-router-dom'
 
 const Card = ({ products }) => {
     const {
-        setCount,
-        count,
+        counter,
         scrolled,
         setShowPreview,
         setProductInfo,
@@ -24,8 +23,7 @@ const Card = ({ products }) => {
     }
 
     const addToCart = (item) => {
-        setCount(prevCount => prevCount + 1)
-        setCartProducts(prevProducts => [...prevProducts, item])
+        setCartProducts(item)
         setShowCheckout(true)
     }
 
@@ -41,10 +39,10 @@ const Card = ({ products }) => {
                             >
                                 {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
                             </span>
-                            <LazyLoadImage className='w-full h-48 object-contain rounded-lg' effect='blur' height={'100%'} width={'100%'} src={product.image} alt="headphones" />
+                            <LazyLoadImage className='w-full h-48 object-cover rounded-lg' effect='blur' height={'100%'} width={'100%'} src={product.thumbnail} alt="headphones" />
                             <p className='flex justify-between'>
                                 <span className='text-sm font-light truncate w-1/2'>{product.title}</span>
-                                <span className='text-lg font-bold'>${product.price}</span>
+                                <span className='text-lg font-bold'>${product.price.toLocaleString('en-US')}</span>
                             </p>
                         </figure>
                         <div className='flex justify-center items-center h-full'>
@@ -69,7 +67,7 @@ const Card = ({ products }) => {
                 to='/shoppcar'
             >
                 <ShoppingBagIcon className='h-5 w-5' />
-                {count}
+                {counter}
             </NavLink>
         </div>
     )

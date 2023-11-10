@@ -4,12 +4,10 @@ import Layout from "../../Components/Layout"
 import ProductPreview from "../../Components/ProductPreview"
 import { useShopContext } from "../../Context"
 import { useFetch } from "../../Hooks/useFetch"
-import CheckoutSideMenu from "../../Components/CheckoutSideMenu"
 
 const Home = () => {
   const { showPreview, setScrolled } = useShopContext()
-  const products = useFetch('https://fakestoreapi.com/products');
-
+  const products = useFetch('https://dummyjson.com/products');
   useEffect(() => {
     // Función para manejar el desplazamiento
     const handleScroll = () => {
@@ -28,11 +26,10 @@ const Home = () => {
         window.removeEventListener('scroll', handleScroll);
     };
 }, []);
-
-  console.log('DETAILS:', showPreview)
+  
   return (
     <Layout>
-      <Card products={products}/>
+      <Card products={products} />
       {showPreview && <ProductPreview />}
     </Layout>
   )

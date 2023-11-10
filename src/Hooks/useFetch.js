@@ -6,9 +6,13 @@ export const useFetch = apiUrl => {
     useEffect(() => {
         fetch(apiUrl)
         .then(response => response.json())
-        .then(products => setProducts(products))
+          // .then(products => {setProducts(products)})
+          .then(response => {
+            const { products } = response;
+            setProducts(products)
+          })
       }, [apiUrl])
 
-    return products
+  return products
 }
 

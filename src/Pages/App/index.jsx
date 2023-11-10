@@ -45,7 +45,7 @@ const AppRoutes = () => {
 
 function App() {
   const { showCheckout } = useShopContext()
-  console.log('Checkout:',showCheckout)
+
   return (
     <BrowserRouter>
       <Navbar />
