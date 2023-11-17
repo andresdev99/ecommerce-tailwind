@@ -34,6 +34,7 @@ export const ShoppingProvider = ({ children }) => {
         localStorage.setItem(COUNTER_KEY, counter.toString());
     }, [counter]);
 
+
     const setCartProducts = (product) => {
         const updatedCartProducts = [...cartProducts];
         const existingProduct = updatedCartProducts.find((cartProduct) => cartProduct.id === product.id);

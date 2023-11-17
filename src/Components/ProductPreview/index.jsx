@@ -22,8 +22,8 @@ const ProductPreview = () => {
             </div>
             <figure className='flex px-6 items-center justify-center'>
                 <img
-                    className='w-40 h-40 rounded object-cover'
-                    src={productInfo.thumbnail}
+                    className='w-40 h-40 rounded object-contain'
+                    src={productInfo.image}
                     alt={productInfo.category}
                 />
             </figure>

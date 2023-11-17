@@ -7,7 +7,7 @@ import { useFetch } from "../../Hooks/useFetch"
 
 const Home = () => {
   const { showPreview, setScrolled } = useShopContext()
-  const products = useFetch('https://dummyjson.com/products');
+  const products = useFetch('https://fakestoreapi.com/products');
   useEffect(() => {
     // Función para manejar el desplazamiento
     const handleScroll = () => {

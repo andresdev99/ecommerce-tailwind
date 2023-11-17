@@ -21,8 +21,8 @@ const OrderCard = ({ product }) => {
             >
                 <figure className='w-24 h-24'>
                     <img
-                        className='w-full h-full rounded-lg object-cover'
-                        src={product.thumbnail}
+                        className='w-full h-full rounded-lg object-contain'
+                        src={product.image}
                         alt={product.title} />
                 </figure>
                 <Tooltip className='z-30 p-1' content={product.title}>
