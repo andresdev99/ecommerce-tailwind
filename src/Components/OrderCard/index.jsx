@@ -5,11 +5,20 @@ import ProductCounter from '../ProductCounter';
 import { Tooltip } from "@material-tailwind/react";
 
 const OrderCard = ({ product }) => {
-    const { removeProduct } = useShopContext();
+    const { removeProduct, setProductInfo, setShowPreview, setShowPreviewFirst } = useShopContext();
+
+    const openProductDetail = (product) => {
+        setProductInfo(product);
+        setShowPreview(true);
+        setShowPreviewFirst(true);
+    }
     return (
         <div className='flex justify-between items-center'>
             <ProductCounter product={product} />
-            <div className='flex items-center h-20 w-32 gap-2'>
+            <div
+                className='flex items-center h-20 w-32 gap-2 cursor-pointer'
+                onClick={() => openProductDetail(product)}
+            >
                 <figure className='w-24 h-24'>
                     <img
                         className='w-full h-full rounded-lg object-cover'

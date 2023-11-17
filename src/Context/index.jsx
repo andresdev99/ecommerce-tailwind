@@ -8,6 +8,7 @@ const ShoppingContext = createContext();
 export const ShoppingProvider = ({ children }) => {
     const [scrolled, setScrolled] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
+    const [showPreviewFirst, setShowPreviewFirst] = useState(false)
     const [showCheckout, setShowCheckout] = useState(false);
     const [productInfo, setProductInfo] = useState({});
 
@@ -81,13 +82,15 @@ export const ShoppingProvider = ({ children }) => {
                 productInfo,
                 cartProducts,
                 showCheckout,
+                showPreviewFirst,
                 setScrolled,
                 setShowPreview,
                 setProductInfo,
                 setCartProducts,
                 setShowCheckout,
                 substractProduct,
-                removeProduct
+                removeProduct,
+                setShowPreviewFirst
             }}
         >
             {children}

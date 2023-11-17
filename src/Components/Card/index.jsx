@@ -13,18 +13,21 @@ const Card = ({ products }) => {
         setShowPreview,
         setProductInfo,
         setCartProducts,
-        setShowCheckout
+        setShowCheckout,
+        setShowPreviewFirst
     } = useShopContext()
     const floatingCounter = `fixed z-20 text-xl bottom-0 text-white font-bold items-center gap-3 right-0 p-4 bg-black w-24 flex  rounded-l-full mb-4 ${scrolled ? 'show' : 'hidden'} `;
 
     const showProduct = (productInfo) => {
         setShowPreview(true)
         setProductInfo(productInfo)
+        setShowPreviewFirst(true)
     }
 
     const addToCart = (item) => {
         setCartProducts(item)
         setShowCheckout(true)
+        setShowPreviewFirst(false)
     }
 
     return (

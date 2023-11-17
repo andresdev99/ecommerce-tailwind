@@ -5,11 +5,18 @@ import { useShopContext } from '../../Context'
 import OrderCard from '../OrderCard'
 
 const CheckoutSideMenu = () => {
-    const { scrolled, setShowCheckout, cartProducts, counter } = useShopContext()
+    const { 
+        scrolled,
+        setShowCheckout,
+        cartProducts,
+        counter,
+        showPreviewFirst 
+    } = useShopContext()
     const asideStyles = `flex overflow-y-auto
-    z-30 flex-col fixed right-0 border 
+    flex-col fixed right-0 border 
     bg-white border-black rounded-lg w-[360px]
     ${scrolled ? ' top-0 h-[100vh] ' : 'top-[80px] h-[calc(100vh-80px)] '}
+    ${showPreviewFirst ? ' z-20 ' : ' z-30 '}
     `
 
     return (
