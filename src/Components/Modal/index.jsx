@@ -17,8 +17,18 @@ const Modal = () => {
         <>
             {isModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg">
-                        <h2 className="text-black text-xl mb-4">Are you sure you want to delete?</h2>
+                    <div className="bg-white w-4/5 p-6 rounded-lg">
+                        <div className='text-black'>
+                            <span className="text-lg">
+                                Are you sure you want to delete&nbsp; 
+                                <span className="text-xl font-bold">
+                                    {productInfo.title}&nbsp;
+                                </span>
+                                <span className="text-xl mb-4">
+                                    from your shopping cart?
+                                </span>
+                            </span>
+                        </div>
                         <div className="flex justify-end">
                             <button
                                 onClick={() => setIsModalOpen(false)}
