@@ -10,6 +10,7 @@ import Navbar from '../../Components/Navbar'
 import './App.css'
 import { useShopContext } from '../../Context'
 import CheckoutSideMenu from '../../Components/CheckoutSideMenu'
+import Modal from '../../Components/Modal'
 
 
 const AppRoutes = () => {
@@ -51,6 +52,7 @@ function App() {
       <Navbar />
       <AppRoutes />
       {showCheckout && <CheckoutSideMenu />}
+      <Modal />
     </BrowserRouter>
   )
 }

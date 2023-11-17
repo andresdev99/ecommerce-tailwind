@@ -11,6 +11,7 @@ export const ShoppingProvider = ({ children }) => {
     const [showPreviewFirst, setShowPreviewFirst] = useState(false)
     const [showCheckout, setShowCheckout] = useState(false);
     const [productInfo, setProductInfo] = useState({});
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     // Load cartProducts from localStorage or set it to an empty array if not present
     const [cartProducts, _setCartProducts] = useState(() => {
@@ -84,6 +85,7 @@ export const ShoppingProvider = ({ children }) => {
                 cartProducts,
                 showCheckout,
                 showPreviewFirst,
+                isModalOpen,
                 setScrolled,
                 setShowPreview,
                 setProductInfo,
@@ -91,7 +93,8 @@ export const ShoppingProvider = ({ children }) => {
                 setShowCheckout,
                 substractProduct,
                 removeProduct,
-                setShowPreviewFirst
+                setShowPreviewFirst,
+                setIsModalOpen
             }}
         >
             {children}

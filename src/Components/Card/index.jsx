@@ -4,6 +4,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useShopContext } from '../../Context';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 import { NavLink } from 'react-router-dom'
+import { Tooltip } from "@material-tailwind/react";
 
 
 const Card = ({ products }) => {
