@@ -1,28 +1,27 @@
 import React from 'react'
 import Layout from '../../Components/Layout'
 import { useShopContext } from '../../Context'
-import OrderCard from '../../Components/OrderCard'
+import OrdersCard from '../../Components/OrdersCard'
+import { Link } from 'react-router-dom'
 
 const MyOrders = () => {
-  const { orders, counter, setShowCheckout } = useShopContext();
+  const { orders } = useShopContext();
 
-  const lastProducts = orders?.slice(-1);
-  console.log(lastProducts)
   return (
     <Layout>
       {
-        lastProducts.length ?
-          <div className='flex flex-col gap-2 px-6 w-4/5'>
+        orders.length ?
+          <div className='flex flex-col gap-2 px-6 items-center w-4/5'>
             <div className='flex justify-between items-center p-6'>
-              <h2 className='font-medium text-xl'>My Order</h2>
+              <h2 className='font-medium text-xl'>My Orders</h2>
             </div>
             {
-              lastProducts[0]?.products?.map(product => <OrderCard key={product.id} product={product} isCheckout={true} />)
+              orders?.map((order, idx) => (
+                <Link to={`/my-orders/${idx}`} key={idx}>
+                  <OrdersCard order={order} />
+                </Link>
+              ))
             }
-            <div className='font-bold'>
-              <span>Total:&nbsp;</span>
-              <span className='text-green-600'>{lastProducts[0].totalPrice}</span>
-            </div>
           </div> :
           <span>NO ORDERS TO SHOW</span>
 

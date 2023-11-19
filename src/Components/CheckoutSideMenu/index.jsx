@@ -36,6 +36,7 @@ const CheckoutSideMenu = () => {
                 date: (`${year}-${month}-${day}`),
                 products: cartProducts,
                 totalProducts: cartProducts.length,
+                totalItems: counter,
                 totalPrice: totalCost
             }
             setOrders(prev => [...prev, orderToAdd]);

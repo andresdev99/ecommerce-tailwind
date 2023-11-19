@@ -1,11 +1,9 @@
-import { useShopContext } from "../Context"
-
 /**
  * Function to sum the total cart products
  * @param {Array} cartProducts 
  * @returns 
  */
-export const totalPrice = (cartProducts) => {
+const totalPrice = (cartProducts) => {
     let total = cartProducts.reduce((counter, productInfo) => (
         counter + (productInfo.price * productInfo.counter)
     ), 0);
@@ -18,7 +16,9 @@ export const totalPrice = (cartProducts) => {
         style: 'currency',
         currency: 'USD' // Puedes cambiar la moneda según tu necesidad
     });
-    
+
     return formattedTotal;
 }
 
+
+export { totalPrice }
