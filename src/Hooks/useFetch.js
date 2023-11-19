@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react"
 
-export const useFetch = apiUrl => {
-    const [products, setProducts] = useState([])
+ const useFetch = (apiUrl) => {
+  const [products, setProducts] = useState([])
 
-    useEffect(() => {
-        fetch(apiUrl)
-        .then(response => response.json())
-          .then(products => {setProducts(products)})
-      }, [apiUrl])
+  useEffect(() => {
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(products => { setProducts(products) })
+  }, [apiUrl])
 
-  return products
+  return { products, setProducts }
 }
+
+export { useFetch }
 

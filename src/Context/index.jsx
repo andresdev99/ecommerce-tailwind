@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { useFetch } from "../Hooks/useFetch";
 
 const CART_PRODUCTS_KEY = "cartProducts";
 const COUNTER_KEY = "counter";
@@ -7,16 +8,24 @@ const ORDERS = "orders";
 const ShoppingContext = createContext();
 
 export const ShoppingProvider = ({ children }) => {
+    const { products } = useFetch('https://fakestoreapi.com/products');
+
     const [scrolled, setScrolled] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
     const [showPreviewFirst, setShowPreviewFirst] = useState(false)
     const [showCheckout, setShowCheckout] = useState(false);
     const [productInfo, setProductInfo] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [searchProduct, setSearchProduct] = useState([])
     const [orders, setOrders] = useState(() => {
         const storedOrder = localStorage.getItem(ORDERS);
         return storedOrder ? JSON.parse(storedOrder) : [];
     });
+    
+    const searchProductByName = (productName) => {
+        const filteredProducts = products.filter(product => product.title.toLowerCase().includes(productName.toLowerCase()))
+        setSearchProduct(filteredProducts)
+    }
 
     // Load cartProducts from localStorage or set it to an empty array if not present
     const [cartProducts, _setCartProducts] = useState(() => {
@@ -38,6 +47,10 @@ export const ShoppingProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem(ORDERS, JSON.stringify(orders));
     }, [orders])
+    
+    useEffect(() => {
+        setSearchProduct(products)
+    }, [products])
     
     const updateCartProducts = (updatedCart) => {
         const productsCounter = updatedCart.reduce((total, cartProduct) => total + cartProduct.counter, 0);
@@ -98,6 +111,8 @@ export const ShoppingProvider = ({ children }) => {
                 showPreviewFirst,
                 isModalOpen,
                 orders,
+                products,
+                searchProduct,
                 setScrolled,
                 setShowPreview,
                 setProductInfo,
@@ -107,7 +122,9 @@ export const ShoppingProvider = ({ children }) => {
                 removeProduct,
                 setShowPreviewFirst,
                 setIsModalOpen,
-                setOrders
+                setOrders,
+                setSearchProduct,
+                searchProductByName
             }}
         >
             {children}
