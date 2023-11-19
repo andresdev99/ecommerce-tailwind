@@ -4,7 +4,7 @@ import { useShopContext } from '../../Context'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 
 const Navbar = () => {
-    const { counter, scrolled }   = useShopContext()
+    const { counter, scrolled, setShowCheckout } = useShopContext()
     const activeStyle = 'underline'
 
 
@@ -83,15 +83,17 @@ const Navbar = () => {
                                         <NavLink
                                             to={item.to}
                                             className={({ isActive }) =>
-                                                isActive && item.text !== "BuyIt" 
-                                                ? activeStyle 
-                                                : undefined
+                                                isActive && item.text !== "BuyIt"
+                                                    ? activeStyle
+                                                    : undefined
                                             }
                                         >
                                             {
                                                 item.to == "/shoppcar" ?
                                                     <div className='flex gap-2'>
-                                                        <ShoppingBagIcon className='flex gap-3 h-5 w-5' />
+                                                        <ShoppingBagIcon className='flex gap-3 h-5 w-5'
+                                                            onClick={() => setShowCheckout(true)}
+                                                        />
                                                         {item.text}
                                                     </div>
                                                     : item.text

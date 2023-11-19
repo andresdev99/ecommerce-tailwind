@@ -8,29 +8,10 @@ import { useFetch } from "../../Hooks/useFetch"
 const Home = () => {
   const { showPreview, setScrolled } = useShopContext()
   const products = useFetch('https://fakestoreapi.com/products');
-  useEffect(() => {
-    // Función para manejar el desplazamiento
-    const handleScroll = () => {
-        if (window.scrollY > 0) {
-            setScrolled(true);
-        } else {
-            setScrolled(false);
-        }
-    };
 
-    // Agregar un evento de desplazamiento al cargar el componente
-    window.addEventListener('scroll', handleScroll);
-
-    // Eliminar el evento de desplazamiento al descargar el componente
-    return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
-}, []);
-  
   return (
     <Layout>
       <Card products={products} />
-      {showPreview && <ProductPreview />}
     </Layout>
   )
 }

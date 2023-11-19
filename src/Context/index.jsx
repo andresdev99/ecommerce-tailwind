@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const CART_PRODUCTS_KEY = "cartProducts";
 const COUNTER_KEY = "counter";
+const ORDERS = "orders";
 
 const ShoppingContext = createContext();
 
@@ -12,6 +13,10 @@ export const ShoppingProvider = ({ children }) => {
     const [showCheckout, setShowCheckout] = useState(false);
     const [productInfo, setProductInfo] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [orders, setOrders] = useState(() => {
+        const storedOrder = localStorage.getItem(ORDERS);
+        return storedOrder ? JSON.parse(storedOrder) : [];
+    });
 
     // Load cartProducts from localStorage or set it to an empty array if not present
     const [cartProducts, _setCartProducts] = useState(() => {
@@ -26,30 +31,36 @@ export const ShoppingProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        // Save cartProducts to localStorage whenever it changes
         localStorage.setItem(CART_PRODUCTS_KEY, JSON.stringify(cartProducts));
-    }, [cartProducts]);
+        localStorage.setItem(COUNTER_KEY, counter.toString());
+    }, [cartProducts, counter]);
 
     useEffect(() => {
-        // Save counter to localStorage whenever it changes
-        localStorage.setItem(COUNTER_KEY, counter.toString());
-    }, [counter]);
+        localStorage.setItem(ORDERS, JSON.stringify(orders));
+    }, [orders])
+    
+    const updateCartProducts = (updatedCart) => {
+        const productsCounter = updatedCart.reduce((total, cartProduct) => total + cartProduct.counter, 0);
+        _setCartProducts(updatedCart);
+        setCounter(productsCounter);
+    };
 
 
     const setCartProducts = (product) => {
-        const updatedCartProducts = [...cartProducts];
-        const existingProduct = updatedCartProducts.find((cartProduct) => cartProduct.id === product.id);
+        if (Object.keys(product).length) {
+            const updatedCartProducts = [...cartProducts];
+            const existingProduct = updatedCartProducts.find((cartProduct) => cartProduct.id === product.id);
 
-        if (existingProduct) {
-            existingProduct.counter += 1;
+            if (existingProduct) {
+                existingProduct.counter += 1;
+            } else {
+                updatedCartProducts.push({ ...product, counter: 1 });
+            }
+
+            updateCartProducts(updatedCartProducts);
         } else {
-            updatedCartProducts.push({ ...product, counter: 1 });
+            updateCartProducts([]);
         }
-
-        const productsCounter = updatedCartProducts.reduce((total, cartProduct) => total + cartProduct.counter, 0);
-
-        _setCartProducts(updatedCartProducts);
-        setCounter(productsCounter);
     };
 
     const substractProduct = (productId) => {
@@ -86,6 +97,7 @@ export const ShoppingProvider = ({ children }) => {
                 showCheckout,
                 showPreviewFirst,
                 isModalOpen,
+                orders,
                 setScrolled,
                 setShowPreview,
                 setProductInfo,
@@ -94,7 +106,8 @@ export const ShoppingProvider = ({ children }) => {
                 substractProduct,
                 removeProduct,
                 setShowPreviewFirst,
-                setIsModalOpen
+                setIsModalOpen,
+                setOrders
             }}
         >
             {children}

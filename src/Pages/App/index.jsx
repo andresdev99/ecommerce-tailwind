@@ -11,6 +11,8 @@ import './App.css'
 import { useShopContext } from '../../Context'
 import CheckoutSideMenu from '../../Components/CheckoutSideMenu'
 import Modal from '../../Components/Modal'
+import { useEffect } from 'react'
+import ProductPreview from '../../Components/ProductPreview'
 
 
 const AppRoutes = () => {
@@ -32,6 +34,10 @@ const AppRoutes = () => {
       element: <MyOrders />
     },
     {
+      path: '/my-orders/last',
+      element: <MyOrder />
+    },
+    {
       path: '/sign-in',
       element: <SignIn />
     },
@@ -45,13 +51,33 @@ const AppRoutes = () => {
 }
 
 function App() {
-  const { showCheckout } = useShopContext()
+  const { showCheckout, showPreview, setScrolled } = useShopContext()
+  
+  useEffect(() => {
+    // Función para manejar el desplazamiento
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    // Agregar un evento de desplazamiento al cargar el componente
+    window.addEventListener('scroll', handleScroll);
+
+    // Eliminar el evento de desplazamiento al descargar el componente
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <BrowserRouter>
       <Navbar />
       <AppRoutes />
       {showCheckout && <CheckoutSideMenu />}
+      {showPreview && <ProductPreview />}
       <Modal />
     </BrowserRouter>
   )

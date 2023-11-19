@@ -5,10 +5,10 @@ import { useShopContext } from '../../Context'
 
 const ProductPreview = () => {
     const { scrolled, setShowPreview, productInfo, showPreviewFirst } = useShopContext()
-    const asideStyles = `flex overflow-y-scroll
+    const asideStyles = `flex overflow-y-auto
     z-30 flex-col fixed right-0 border 
     bg-white border-black rounded-lg w-[360px]
-    ${scrolled ? ' top-0 h-[100vh] ' : ' h-[calc(100vh-80px)] '}
+    ${scrolled ? ' top-0 h-[100vh] ' : ' top-[80px]  h-[calc(100vh-80px)] '}
     ${showPreviewFirst ? ' z-30 ' : ' z-20 '}
     `
 

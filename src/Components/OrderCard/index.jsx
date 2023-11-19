@@ -4,7 +4,7 @@ import { useShopContext } from '../../Context'
 import ProductCounter from '../ProductCounter';
 import { Tooltip } from "@material-tailwind/react";
 
-const OrderCard = ({ product }) => {
+const OrderCard = ({ product, isCheckout }) => {
     const {
         setProductInfo,
         setShowPreview,
@@ -25,7 +25,14 @@ const OrderCard = ({ product }) => {
     return (
         <div className='flex bg-gray-200 rounded-md gap-3 h-14 justify-center items-center'>
             <div className='w-1/5'>
-                <ProductCounter product={product} />
+                {
+                    !isCheckout
+                        ? <ProductCounter product={product} />
+                        : <span
+                            className='flex font-bold justify-center'>
+                            {product.counter}
+                        </span>
+                }
             </div>
             <div
                 className='flex items-center justify-center w-3/5 gap-1 cursor-pointer'
@@ -41,12 +48,18 @@ const OrderCard = ({ product }) => {
                     <p className='text-xs w-3/5 font-light line-clamp-2'>{product.title}</p>
                 </Tooltip>
             </div>
+
             <div className='flex items-center h-full w-2/5'>
-                <p className='text-lg text-center font-medium w-4/5'>${product.price.toLocaleString('en-US')}</p>
-                <TrashIcon
-                    className='h-full w-1/5 hover:bg-red-300 rounded-r-md text-red-500 cursor-pointer '
-                    onClick={openModal} />
+                <p className='text-lg text-center font-medium w-4/5'>${product?.price?.toLocaleString('en-US')}</p>
+                {
+                    !isCheckout &&
+                    <TrashIcon
+                        className='h-full w-1/5 bg-white hover:bg-red-300 rounded-r-md text-red-500 cursor-pointer '
+                        onClick={openModal} />
+                }
+
             </div>
+
         </div>
     )
 }
