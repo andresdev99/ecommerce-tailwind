@@ -4,9 +4,13 @@ import { useShopContext } from '../../Context'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 
 const Navbar = () => {
-    const { counter, scrolled, setShowCheckout } = useShopContext()
+    const { counter, scrolled, setShowCheckout, products } = useShopContext()
     const activeStyle = 'underline'
+    const categories = [];
 
+    const categoryAlreadyExists = (category) => {
+        return categories.find(cat => cat == category);
+    }
 
     let navItems = [
         // Left Navbar Items
@@ -19,28 +23,10 @@ const Navbar = () => {
             {
                 to: '/',
                 text: 'All',
-            },
-            {
-                to: '/clothes',
-                text: 'clothes',
-            },
-            {
-                to: '/electronics',
-                text: 'electronics',
-            },
-            {
-                to: '/furnitures',
-                text: 'furnitures',
-            },
-            {
-                to: '/toys',
-                text: 'toys',
-            },
-            {
-                to: '/others',
-                text: 'others',
             }
+
         ],
+
         // Right Navbar Items
         [
             {
@@ -68,6 +54,17 @@ const Navbar = () => {
         ]
     ]
 
+    products.forEach((product) => {
+        let category = product.category.split(' ')[0];
+        if (!categoryAlreadyExists(category)) {
+            categories.push(category);
+            navItems[0].push({
+                to: "/" + category,
+                text: category.toUpperCase()[0] + category.slice(1)
+            })
+        }
+    })
+    
     // Aplicar una clase CSS para el navbar cuando se desplace
     const navbarClass = `flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light ${scrolled ? 'hidden' : 'show'}`;
 

@@ -19,8 +19,8 @@ const Home = () => {
           placeholder="Search product"
           onChange={(event) => searchProductByName(event.target.value)} />
         {searchProduct && searchProduct.length
-          ?<Card products={searchProduct} />
-          :<div className="mt-2">No products found</div>
+          ? <Card products={searchProduct} />
+          : <div className="mt-2">No products found</div>
         }
       </div>
 
