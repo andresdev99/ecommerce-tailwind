@@ -37,7 +37,7 @@ const Navbar = () => {
         // Right Navbar Items
         [
             {
-                to: '',
+                to: '/email',
                 text: 'Penny@Teti.com',
                 className: 'text-black/60'
             },
@@ -54,7 +54,7 @@ const Navbar = () => {
                 text: 'Sign in',
             },
             {
-                to: '',
+                to: '/shopping-cart',
                 text: counter,
                 className: 'bg-black text-white text-md font-bold rounded p-2'
             }
@@ -75,8 +75,8 @@ const Navbar = () => {
     useEffect(() => {
         setCategories([...categories]); // Ensure a new reference to the categories array
     }, [categories.length]); // Using categories.length as a less volatile dependency
-    
-    
+
+
     // Aplicar una clase CSS para el navbar cuando se desplace
     const navbarClass = `flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light ${scrolled ? 'hidden' : 'show'}`;
 
@@ -89,30 +89,44 @@ const Navbar = () => {
                             {
                                 items.map((item, index) => (
                                     <li className={item.className} key={index}>
-                                        <NavLink
-                                            to={item.to}
-                                            onClick={() => {
-                                                if (!isNaN(item.text)) {
-                                                    setShowCheckout(true);
-                                                }
-                                            }}
-                                            className={({ isActive }) =>
-                                                isActive && item.text !== "BuyIt" && isNaN(item.text) && item.text !== 'Penny@Teti.com'
-                                                    ? activeStyle
-                                                    : undefined
-                                            }
-                                        >
-                                            {
-                                                !isNaN(item.text) ?
-                                                    <div className='flex gap-2'>
-                                                        <ShoppingBagIcon className='flex gap-3 h-5 w-5'
-                                                            onClick={() => setShowCheckout(true)}
-                                                        />
-                                                        {item.text}
-                                                    </div>
-                                                    : item.text
-                                            }
-                                        </NavLink>
+                                        {
+                                            item.to == '/shopping-cart' || item.to == '/email'
+                                                ? <div
+                                                    className='cursor-pointer'
+                                                    onClick={() => {
+                                                        if (!isNaN(item.text)) {
+                                                            setShowCheckout(true);
+                                                        }
+                                                    }}
+                                                >
+                                                    {
+                                                        !isNaN(item.text) ?
+                                                            <div className='flex gap-2'>
+                                                                <ShoppingBagIcon className='flex gap-3 h-5 w-5'
+                                                                    onClick={() => setShowCheckout(true)}
+                                                                />
+                                                                {item.text}
+                                                            </div>
+                                                            : item.text
+                                                    }
+                                                </div>
+                                                : <NavLink
+                                                    to={item.to}
+                                                    onClick={() => {
+                                                        if (!isNaN(item.text)) {
+                                                            setShowCheckout(true);
+                                                        }
+                                                    }}
+                                                    className={({ isActive }) =>
+                                                        isActive && item.text !== "BuyIt" && isNaN(item.text) && item.text !== 'Penny@Teti.com'
+                                                            ? activeStyle
+                                                            : undefined
+                                                    }
+                                                >
+                                                    {item.text}
+                                                </NavLink>
+                                        }
+
                                     </li>
                                 ))
                             }
@@ -121,7 +135,7 @@ const Navbar = () => {
                 }
             </nav>
         </>
-    );    
+    );
 }
 
 export default Navbar
