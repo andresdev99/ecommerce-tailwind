@@ -37,7 +37,7 @@ const Navbar = () => {
         // Right Navbar Items
         [
             {
-                to: '/email',
+                to: '',
                 text: 'Penny@Teti.com',
                 className: 'text-black/60'
             },
@@ -54,7 +54,7 @@ const Navbar = () => {
                 text: 'Sign in',
             },
             {
-                to: '/shoppcar',
+                to: '',
                 text: counter,
                 className: 'bg-black text-white text-md font-bold rounded p-2'
             }
@@ -91,15 +91,19 @@ const Navbar = () => {
                                     <li className={item.className} key={index}>
                                         <NavLink
                                             to={item.to}
-                                            // onClick={(event) => searchProductByCategory(event.target.textContent)}
+                                            onClick={() => {
+                                                if (!isNaN(item.text)) {
+                                                    setShowCheckout(true);
+                                                }
+                                            }}
                                             className={({ isActive }) =>
-                                                isActive && item.text !== "BuyIt"
+                                                isActive && item.text !== "BuyIt" && isNaN(item.text) && item.text !== 'Penny@Teti.com'
                                                     ? activeStyle
                                                     : undefined
                                             }
                                         >
                                             {
-                                                item.to == "/shoppcar" ?
+                                                !isNaN(item.text) ?
                                                     <div className='flex gap-2'>
                                                         <ShoppingBagIcon className='flex gap-3 h-5 w-5'
                                                             onClick={() => setShowCheckout(true)}
@@ -108,18 +112,16 @@ const Navbar = () => {
                                                     </div>
                                                     : item.text
                                             }
-
                                         </NavLink>
                                     </li>
                                 ))
                             }
                         </ul>
-
                     ))
                 }
             </nav>
         </>
-    )
+    );    
 }
 
 export default Navbar

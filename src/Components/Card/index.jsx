@@ -17,7 +17,7 @@ const Card = ({ products }) => {
         setShowCheckout,
         setShowPreviewFirst
     } = useShopContext()
-    const floatingCounter = `fixed z-20 text-xl bottom-0 text-white font-bold items-center gap-3 right-0 p-4 bg-black w-24 flex  rounded-l-full mb-4 ${scrolled ? 'show' : 'hidden'} `;
+    const floatingCounter = `fixed z-20 text-xl bottom-0 text-white font-bold items-center cursor-pointer gap-3 right-0 p-4 bg-black w-24 flex  rounded-l-full mb-4 ${scrolled ? 'show' : 'hidden'} `;
 
     const showProduct = (productInfo) => {
         setShowPreview(true)
@@ -68,13 +68,13 @@ const Card = ({ products }) => {
                     </div>
                 ))
             }
-            <NavLink
+            <div
                 className={floatingCounter}
-                to='/shoppcar'
+                onClick={() => setShowCheckout(true)}
             >
                 <ShoppingBagIcon className='h-5 w-5' />
                 {counter}
-            </NavLink>
+            </div>
         </div>
     )
 }

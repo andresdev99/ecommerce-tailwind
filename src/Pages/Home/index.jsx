@@ -21,8 +21,8 @@ const Home = () => {
 
   useEffect(() => {
     const categoryCapitalized = category.charAt(0).toUpperCase() + category.slice(1); // Capitalizing the category name
-    
-    if (!inputValue ) { // Checking if the search input is empty
+
+    if (!inputValue) { // Checking if the search input is empty
       if (isCategory(category)) { // Checking if the category exists
         const filteredProducts = products.filter(product => (
           (product.category.charAt(0).toUpperCase() + product.category.slice(1)).includes(categoryCapitalized)
