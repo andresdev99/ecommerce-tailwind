@@ -45,7 +45,9 @@ const Card = ({ products }) => {
                             </span>
                             <LazyLoadImage className='w-full h-48 object-contain rounded-lg' effect='blur' height={'100%'} width={'100%'} src={product.image} alt="headphones" />
                             <p className='flex justify-between'>
-                                <span className='text-sm font-light truncate w-1/2'>{product.title}</span>
+                                <Tooltip className='z-30 p-1' content={product.title}>
+                                    <span className='text-sm font-light truncate w-1/2'>{product.title}</span>
+                                </Tooltip>
                                 <span className='text-lg font-bold'>${product.price.toLocaleString('en-US')}</span>
                             </p>
                         </figure>

@@ -8,10 +8,11 @@ const ORDERS = "orders";
 const ShoppingContext = createContext();
 
 export const ShoppingProvider = ({ children }) => {
-    const { products } = useFetch('https://fakestoreapi.com/products');
+    const { products, isLoading } = useFetch('https://fakestoreapi.com/products');
 
     const [scrolled, setScrolled] = useState(false);
     const [showPreview, setShowPreview] = useState(false);
+    const [categories, setCategories] = useState([])
     const [showPreviewFirst, setShowPreviewFirst] = useState(false)
     const [showCheckout, setShowCheckout] = useState(false);
     const [productInfo, setProductInfo] = useState({});
@@ -21,10 +22,21 @@ export const ShoppingProvider = ({ children }) => {
         const storedOrder = localStorage.getItem(ORDERS);
         return storedOrder ? JSON.parse(storedOrder) : [];
     });
-    
+
     const searchProductByName = (productName) => {
-        const filteredProducts = products.filter(product => product.title.toLowerCase().includes(productName.toLowerCase()))
+        const filteredProducts = searchProduct.filter(product => product.title.toLowerCase().includes(productName.toLowerCase()))
         setSearchProduct(filteredProducts)
+    }
+
+    const searchProductByCategory = (categoryName) => {
+        if (categoryName != 'All' && categoryName != 'BuyIt') {
+            const filteredProducts = products.filter(product => (
+                (product.category.toUpperCase()[0] + product.category.slice(1)).includes(categoryName)
+            ))
+            setSearchProduct(filteredProducts)
+        } else {
+            setSearchProduct(products)
+        }
     }
 
     // Load cartProducts from localStorage or set it to an empty array if not present
@@ -47,11 +59,11 @@ export const ShoppingProvider = ({ children }) => {
     useEffect(() => {
         localStorage.setItem(ORDERS, JSON.stringify(orders));
     }, [orders])
-    
+
     useEffect(() => {
         setSearchProduct(products)
     }, [products])
-    
+
     const updateCartProducts = (updatedCart) => {
         const productsCounter = updatedCart.reduce((total, cartProduct) => total + cartProduct.counter, 0);
         _setCartProducts(updatedCart);
@@ -113,6 +125,8 @@ export const ShoppingProvider = ({ children }) => {
                 orders,
                 products,
                 searchProduct,
+                categories,
+                isLoading,
                 setScrolled,
                 setShowPreview,
                 setProductInfo,
@@ -124,7 +138,9 @@ export const ShoppingProvider = ({ children }) => {
                 setIsModalOpen,
                 setOrders,
                 setSearchProduct,
-                searchProductByName
+                searchProductByName,
+                searchProductByCategory,
+                setCategories
             }}
         >
             {children}

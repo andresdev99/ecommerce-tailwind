@@ -4,7 +4,14 @@ import { useShopContext } from '../../Context'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 
 const Navbar = () => {
-    const { counter, scrolled, setShowCheckout, products } = useShopContext()
+    const {
+        counter,
+        scrolled,
+        setShowCheckout,
+        products,
+        searchProductByCategory,
+        setCategories
+    } = useShopContext()
     const activeStyle = 'underline'
     const categories = [];
 
@@ -64,6 +71,11 @@ const Navbar = () => {
             })
         }
     })
+
+    useEffect(() => {
+        setCategories([...categories]); // Ensure a new reference to the categories array
+    }, [categories.length]); // Using categories.length as a less volatile dependency
+    
     
     // Aplicar una clase CSS para el navbar cuando se desplace
     const navbarClass = `flex justify-between top-0 items-center fixed z-10 w-full py-5 px-8 text-sm font-light ${scrolled ? 'hidden' : 'show'}`;
@@ -79,6 +91,7 @@ const Navbar = () => {
                                     <li className={item.className} key={index}>
                                         <NavLink
                                             to={item.to}
+                                            // onClick={(event) => searchProductByCategory(event.target.textContent)}
                                             className={({ isActive }) =>
                                                 isActive && item.text !== "BuyIt"
                                                     ? activeStyle
